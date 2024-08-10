@@ -4,7 +4,8 @@
   "description": "A starter template for Express Server projects, for personal use only",
   "type": "module",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "repository": {
     "type": "git",
