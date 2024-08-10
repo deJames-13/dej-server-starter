@@ -1,0 +1,38 @@
+{
+  "name": "@dejames-13/dej-server-starter",
+  "version": "0.0.1",
+  "description": "A starter template for Express Server projects, for personal use only",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deJames-13/dej-server-starter.git"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "express-validator": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "keywords": [
+    "express",
+    "starter",
+    "server",
+    "template"
+  ],
+  "author": "deJames-13 <de.james013@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/deJames-13/dej-server-starter/issues"
+  },
+  "homepage": "https://github.com/deJames-13/dej-server-starter#readme"
+}
