@@ -10,7 +10,7 @@ export default class UserController extends Controller {
   // route    GET /api/users
   // @access  Public
   static getUsers = asyncHandler(async (req, res) => {
-    const users = await UserService.getUsers(req, res);
+    const users = await UserService.getAll();
     utils.successHandler({
       res,
       message: 'Users!',
@@ -22,7 +22,7 @@ export default class UserController extends Controller {
   // route    GET /api/users
   // @access  Public
   static getUser = asyncHandler(async (req, res) => {
-    let user = await UserService.getUser({ id: req.params.id });
+    let user = await UserService.getById(req.params.id);
     utils.successHandler({
       res,
       message: 'User!',
@@ -54,7 +54,7 @@ export default class UserController extends Controller {
   static register = asyncHandler(async (req, res) => {
     await validate(req, res, userCreateRules);
 
-    const userExists = await UserService.getUser({ email: req.body?.email });
+    const userExists = await UserService.getOne({ email: req.body?.email });
     if (userExists)
       return utils.errorHandler({ res, message: 'User already exists' });
 

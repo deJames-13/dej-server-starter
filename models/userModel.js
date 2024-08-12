@@ -22,9 +22,9 @@ const User = new Model({
     { timestamps: true },
   ],
 });
+
 User.statics.fillables = ['name', 'email', 'password'];
 User.statics.hidden = ['password'];
-
 User.statics.hashPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);

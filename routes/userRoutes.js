@@ -7,7 +7,7 @@ const userRouter = Router();
 userRouter.post('/', UserController.register);
 userRouter.post('/authenticate', UserController.authenticate);
 
-userRouter.get('/', protect, UserController.getUsers);
+userRouter.get('/', UserController.getUsers);
 userRouter.post('/logout', protect, UserController.logout);
 
 userRouter
