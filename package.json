@@ -4,8 +4,8 @@
   "description": "A starter template for Express Server projects, for personal use only",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "start": "node main.js",
+    "server": "nodemon main.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
     "mongoose": "^8.5.2"
   },
   "devDependencies": {
+    "module-alias": "^2.2.3",
     "nodemon": "^3.1.4"
   },
   "keywords": [

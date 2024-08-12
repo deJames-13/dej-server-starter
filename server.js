@@ -6,34 +6,38 @@ import { MONGO_URI, PORT } from './env/index.js';
 import * as err from './middleware/errorMiddleware.js';
 import router from './routes/index.js';
 
-const app = express();
+const server = () => {
+  const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
-app.use(cookieParser());
-app.use('/api', router);
+  app.use(cookieParser());
+  app.use('/api', router);
 
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-  const root_folder = path.join(__dirname, '../');
+  if (process.env.NODE_ENV === 'production') {
+    const __dirname = path.resolve();
+    const root_folder = path.join(__dirname, '../');
 
-  app.use(express.static(path.join(root_folder, 'frontend/dist')));
+    app.use(express.static(path.join(root_folder, 'frontend/dist')));
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(root_folder, 'frontend/dist/index.html'));
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(root_folder, 'frontend/dist/index.html'));
+    });
+  } else {
+    app.get('/', (req, res) => {
+      res.send('API is running...');
+    });
+  }
+
+  app.use(err.notFound);
+  app.use(err.errorHandler);
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
   });
-} else {
-  app.get('/', (req, res) => {
-    res.send('API is running...');
-  });
-}
 
-app.use(err.notFound);
-app.use(err.errorHandler);
+  connectDB(MONGO_URI);
+};
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-
-connectDB(MONGO_URI);
+export default server;
