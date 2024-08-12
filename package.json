@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git+https://github.com/deJames-13/dej-server-starter.git"
   },
+  "_moduleAliases": {
+    "@config": "./config/*"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
@@ -22,7 +25,6 @@
     "mongoose": "^8.5.2"
   },
   "devDependencies": {
-    "module-alias": "^2.2.3",
     "nodemon": "^3.1.4"
   },
   "keywords": [
