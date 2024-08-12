@@ -1,41 +1,44 @@
 export default class Service {
   // static functions for services
   static model = null;
+  static _checkModel() {
+    if (!this.model) throw new Error('Model not set');
+  }
 
   static async getAll() {
-    if (!this.model) throw new Error('Model not set');
-    return await this.model.find();
+    this._checkModel();
+    return this.model.find();
   }
 
   static async getById(id) {
-    if (!this.model) throw new Error('Model not set');
-    return await this.model.findById(id);
+    this._checkModel();
+    return this.model.findById(id);
   }
 
   static async getOne(filter) {
-    if (!this.model) throw new Error('Model not set');
-    return await this.model.findOne(filter);
+    this._checkModel();
+    return this.model.findOne(filter);
   }
 
   static async filter(filter) {
-    if (!this.model) throw new Error('Model not set');
-    return await this.model.find(filter);
+    this._checkModel();
+    return this.model.find(filter);
   }
 
   static async create(body) {
-    if (!this.model) throw new Error('Model not set');
+    this._checkModel();
     const data = this.model.filterFillables(body);
-    return await this.model.create(data);
+    return this.model.create(data);
   }
 
   static async update(id, body) {
-    if (!this.model) throw new Error('Model not set');
+    this._checkModel();
     const data = this.model.filterFillables(body);
-    return await this.model.findByIdAndUpdate(id, data, { new: true });
+    return this.model.findByIdAndUpdate(id, data, { new: true });
   }
 
   static async delete(id) {
-    if (!this.model) throw new Error('Model not set');
-    return await this.model.findByIdAndDelete(id);
+    this._checkModel();
+    return this.model.findByIdAndDelete(id);
   }
 }

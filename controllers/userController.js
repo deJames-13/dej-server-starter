@@ -58,7 +58,7 @@ export default class UserController extends Controller {
     if (userExists)
       return utils.errorHandler({ res, message: 'User already exists' });
 
-    const user = await UserService.createUser(req.body);
+    const user = await UserService.create(req.body);
     if (!user._id) utils.errorHandler({ res, message: 'Invalid user data!' });
 
     utils.generateToken(res, user._id);
