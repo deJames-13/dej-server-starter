@@ -10,9 +10,9 @@ export default class Resource {
 
   toArray() {
     if (Array.isArray(this.data)) {
-      return this.data.map((item) => this.transform(item));
+      return this.data.map((item) => this.transform(item?.toJSON()));
     }
-    return this.transform(this.data);
+    return this.transform(this.data?.toJSON());
   }
 
   toJson() {
