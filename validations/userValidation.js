@@ -1,7 +1,8 @@
 import { check } from 'express-validator';
 
 const matchPassword = (value, { req }) => {
-  if (value !== req.body.password) throw new Error('Password does not match!');
+  if (value !== req.body.password_confirmation)
+    throw new Error('Password does not match!');
 
   return value;
 };
@@ -9,25 +10,38 @@ const matchPassword = (value, { req }) => {
 const userCreateRules = () => {
   // METHOD CHAINING
   return [
-    check('name').notEmpty().withMessage('Name is required'),
     check('email').isEmail().withMessage('Email is invalid'),
+
+    check('name')
+      .notEmpty()
+      .withMessage('Name is required')
+      .matches(/^[a-zA-Z0-9 ]+$/)
+      .withMessage('Name must be alphanumeric'),
+
     check('password')
       .isLength({ min: 6, max: 20 })
-      .withMessage('Password must be between 6 and 20 characters'),
-    check('password_confirmation').custom(matchPassword),
+      .withMessage('Password must be between 6 and 20 characters')
+      .custom(matchPassword),
   ];
 };
 
 const userUpdateRules = () => {
   return [
-    check('name').notEmpty().withMessage('Name is required'),
     check('email').isEmail().withMessage('Email is invalid'),
+
+    check('name')
+      .optional()
+      .isString()
+      .notEmpty()
+      .withMessage('Name is required')
+      .matches(/^[a-zA-Z0-9 ]+$/)
+      .withMessage('Name must be alphanumeric'),
 
     check('password')
       .optional()
       .isLength({ min: 6, max: 20 })
-      .withMessage('Password must be between 6 and 20 characters'),
-    check('password_confirmation').optional().custom(matchPassword),
+      .withMessage('Password must be between 6 and 20 characters')
+      .custom(matchPassword),
   ];
 };
 

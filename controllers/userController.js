@@ -37,9 +37,9 @@ export default class UserController extends Controller {
     utils.tokenExists(req, UserService.authToken) &&
       utils.errorHandler({ res, message: 'Already authenticated!' });
 
-    await utils.validate(req, res, userCreateRules);
+    const validData = await utils.validate(req, res, userCreateRules);
 
-    const { user, token } = await UserService.registerUser(req.body);
+    const { user, token } = await UserService.registerUser(validData);
     if (!user._id) utils.errorHandler({ res, message: 'Invalid user data!' });
 
     res.cookie(...token);
@@ -105,9 +105,9 @@ export default class UserController extends Controller {
   // @access  Private
   static updateProfile = asyncHandler(async (req, res) => {
     req.body = { ...req.user.toObject(), ...req.body };
-    await utils.validate(req, res, userUpdateRules);
 
-    const user = await UserService.updateUser(req.user._id, req.body);
+    const validData = await utils.validate(req, res, userUpdateRules);
+    const user = await UserService.updateUser(req.user._id, validData);
     if (!user)
       return utils.errorHandler({ res, message: 'Invalid user data!' });
 

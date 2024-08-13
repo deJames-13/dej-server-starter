@@ -1,8 +1,8 @@
-import { validationResult } from 'express-validator';
+import { matchedData, validationResult } from 'express-validator';
 import { errorHandler } from './responseHandler.js';
 
-const validate = async (req, res, validation) => {
-  await Promise.all(validation().map((rule) => rule.run(req)));
+const validate = async (req, res, validationRules) => {
+  await Promise.all(validationRules().map((rule) => rule.run(req)));
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const errorMessages = errors
@@ -16,8 +16,7 @@ const validate = async (req, res, validation) => {
       errors: errors.array(),
     });
   }
-  // return data or fields that is included in the validation rules
-  return validation().map((rule) => rule.param);
+  return matchedData(req);
 };
 
 export { validate };
