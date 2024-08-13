@@ -30,24 +30,6 @@ export default class UserController extends Controller {
     });
   });
 
-  // @desc    Authenticate user & get token
-  // route    POST /api/users/authenticate
-  // @access  Public
-  static authenticate = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-
-    const { user, token } = await UserService.authenticate(email, password);
-    if (!user) return errorHandler({ res, message: 'Invalid credentials' });
-
-    console.log(token);
-    res.cookie(...token);
-    successHandler({
-      res,
-      message: 'Authenticated!',
-      user: UserResource.make(user),
-    });
-  });
-
   // @desc    Register a new user
   // route    POST /api/users
   // @access  Public
@@ -65,6 +47,23 @@ export default class UserController extends Controller {
     successHandler({
       res,
       message: 'Registered!',
+      user: UserResource.make(user),
+    });
+  });
+
+  // @desc    Authenticate user & get token
+  // route    POST /api/users/authenticate
+  // @access  Public
+  static authenticate = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    const { user, token } = await UserService.authenticate(email, password);
+    if (!user) return errorHandler({ res, message: 'Invalid credentials' });
+
+    res.cookie(...token);
+    successHandler({
+      res,
+      message: 'Authenticated!',
       user: UserResource.make(user),
     });
   });
