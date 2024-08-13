@@ -45,6 +45,7 @@ export default class Resource {
   }
 
   static collection(data) {
+    if (!data) return [];
     return data.map((item) => new this(item).toArray());
   }
 }
