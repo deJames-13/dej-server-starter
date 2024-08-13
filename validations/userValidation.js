@@ -1,4 +1,4 @@
-import { check, checkSchema } from 'express-validator';
+import { check } from 'express-validator';
 
 const matchPassword = (value, { req }) => {
   if (value !== req.body.password) throw new Error('Password does not match!');
