@@ -5,7 +5,7 @@ import { UserService } from '../services/index.js';
 import { errorHandler } from '../utils/index.js';
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token = req.cookies.jwt;
+  let token = req.cookies[UserService.authToken];
 
   if (!token)
     return errorHandler({
@@ -16,7 +16,7 @@ const protect = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = await UserService.getUser({ id: decoded.userId });
+    req.user = await UserService.getById(decoded.userId);
 
     next();
   } catch (e) {
