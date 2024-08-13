@@ -37,11 +37,6 @@ User.pre('save', async function (next) {
 });
 
 User.methods.matchPassword = async function (password) {
-  console.log(
-    await bcrypt.compare(password, this.password),
-    password,
-    this.password
-  );
   return await bcrypt.compare(password, this.password);
 };
 
