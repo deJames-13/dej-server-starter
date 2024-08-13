@@ -36,6 +36,7 @@ export default class UserController extends Controller {
   static register = asyncHandler(async (req, res) => {
     utils.tokenExists(req, UserService.authToken) &&
       utils.errorHandler({ res, message: 'Already authenticated!' });
+
     await utils.validate(req, res, userCreateRules);
 
     const { user, token } = await UserService.registerUser(req.body);

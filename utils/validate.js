@@ -16,6 +16,8 @@ const validate = async (req, res, validation) => {
       errors: errors.array(),
     });
   }
+  // return data or fields that is included in the validation rules
+  return validation().map((rule) => rule.param);
 };
 
 export { validate };
