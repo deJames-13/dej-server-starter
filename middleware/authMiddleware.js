@@ -5,7 +5,7 @@ import { UserService } from '../services/index.js';
 import { errorHandler } from '../utils/index.js';
 
 const protect = asyncHandler(async (req, res, next) => {
-  let token = req.cookies[UserService.authToken];
+  let token = req.cookies.jwt || req.cookies[UserService.authToken];
 
   if (!token)
     return errorHandler({
