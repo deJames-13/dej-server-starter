@@ -25,19 +25,18 @@ const User = new Model({ name: 'User', schema: userSchema });
 User.statics.fillables = ['name', 'email', 'password'];
 User.statics.hidden = ['password'];
 
-User.statics.hashPassword = async function (password) {
+User.statics.hashPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 };
-
-User.pre('save', async function (next) {
-  if (this.isModified('password'))
-    this.password = await this.hashPassword(this.password);
-  next();
-});
 
 User.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
+User.pre('save', async function (next) {
+  if (this.isModified('password'))
+    this.password = await this.statics.hashPassword(this.password);
+  next();
+});
 export default User.makeModel();
