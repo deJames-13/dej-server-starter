@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectDB = async (uri, success = () => {}) => {
+const connectDB = async (uri, success = () => {}, error = () => []) => {
   return mongoose
     .connect(uri)
     .then(() => {
@@ -9,6 +9,7 @@ const connectDB = async (uri, success = () => {}) => {
     })
     .catch((e) => {
       console.log('Error connecting to database: ', e.message);
+      error();
     });
 };
 
