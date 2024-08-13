@@ -20,22 +20,19 @@ const userSchema = [
   { timestamps: true },
 ];
 
-const User = new Model({
-  name: 'User',
-  schema: userSchema,
-});
+const User = new Model({ name: 'User', schema: userSchema });
 
 User.statics.fillables = ['name', 'email', 'password'];
 User.statics.hidden = ['password'];
+
 User.statics.hashPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password, salt);
 };
 
 User.pre('save', async function (next) {
-  if (this.isModified('password')) {
+  if (this.isModified('password'))
     this.password = await this.hashPassword(this.password);
-  }
   next();
 });
 
