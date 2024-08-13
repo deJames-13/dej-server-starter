@@ -33,11 +33,11 @@ const server = () => {
   app.use(err.notFound);
   app.use(err.errorHandler);
 
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+  connectDB(MONGO_URI, () => {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
   });
-
-  connectDB(MONGO_URI);
 };
 
 export default server;
