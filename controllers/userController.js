@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import { UserService } from '../services/index.js';
-import { errorHandler, successHandler } from '../utils/index.js';
+import * as utils from '../utils/index.js';
 import { userCreateRules, userUpdateRules } from '../validations/index.js';
 import { UserResource } from './../resources/index.js';
 import Controller from './controller.js';
@@ -11,7 +11,7 @@ export default class UserController extends Controller {
   // @access  Public
   static getUsers = asyncHandler(async (req, res) => {
     const users = await UserService.getAll();
-    successHandler({
+    utils.successHandler({
       res,
       message: 'Users!',
       users: UserResource.collection(users),
@@ -23,7 +23,7 @@ export default class UserController extends Controller {
   // @access  Public
   static getUser = asyncHandler(async (req, res) => {
     let user = await UserService.getById(req.params.id);
-    successHandler({
+    utils.successHandler({
       res,
       message: 'User!',
       user: UserResource.make(user),
@@ -34,17 +34,15 @@ export default class UserController extends Controller {
   // route    POST /api/users
   // @access  Public
   static register = asyncHandler(async (req, res) => {
-    await validate(req, res, userCreateRules);
-
-    const userExists = await UserService.getOne({ email: req.body.email });
-    if (userExists)
-      return errorHandler({ res, message: 'User already exists' });
+    utils.tokenExists(req, UserService.authToken) &&
+      utils.errorHandler({ res, message: 'Already authenticated!' });
+    await utils.validate(req, res, userCreateRules);
 
     const { user, token } = await UserService.registerUser(req.body);
-    if (!user._id) errorHandler({ res, message: 'Invalid user data!' });
+    if (!user._id) utils.errorHandler({ res, message: 'Invalid user data!' });
 
     res.cookie(...token);
-    successHandler({
+    utils.successHandler({
       res,
       message: 'Registered!',
       user: UserResource.make(user),
@@ -55,13 +53,16 @@ export default class UserController extends Controller {
   // route    POST /api/users/authenticate
   // @access  Public
   static authenticate = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
+    utils.tokenExists(req, UserService.authToken) &&
+      utils.errorHandler({ res, message: 'Already authenticated!' });
 
+    const { email, password } = req.body;
     const { user, token } = await UserService.authenticate(email, password);
-    if (!user) return errorHandler({ res, message: 'Invalid credentials' });
+    if (!user)
+      return utils.errorHandler({ res, message: 'Invalid credentials' });
 
     res.cookie(...token);
-    successHandler({
+    utils.successHandler({
       res,
       message: 'Authenticated!',
       user: UserResource.make(user),
@@ -75,7 +76,7 @@ export default class UserController extends Controller {
     const token = await UserService.logout();
 
     res.cookie(...token);
-    successHandler({ res, message: 'Logged out!' });
+    utils.successHandler({ res, message: 'Logged out!' });
   });
 
   // @desc    Get user profile
@@ -85,13 +86,13 @@ export default class UserController extends Controller {
     const user = req.user;
 
     if (!user._id)
-      return errorHandler({
+      return utils.errorHandler({
         res,
         statusCode: 401,
         message: 'Unauthorized',
       });
 
-    successHandler({
+    utils.successHandler({
       res,
       message: 'Profile fetch successfully!',
       user: UserResource.make(user),
@@ -103,12 +104,13 @@ export default class UserController extends Controller {
   // @access  Private
   static updateProfile = asyncHandler(async (req, res) => {
     req.body = { ...req.user.toObject(), ...req.body };
-    await validate(req, res, userUpdateRules);
+    await utils.validate(req, res, userUpdateRules);
 
     const user = await UserService.updateUser(req.user._id, req.body);
-    if (!user) return errorHandler({ res, message: 'Invalid user data!' });
+    if (!user)
+      return utils.errorHandler({ res, message: 'Invalid user data!' });
 
-    successHandler({
+    utils.successHandler({
       res,
       message: 'Profile updated!',
       user: UserResource.make(user),

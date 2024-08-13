@@ -8,6 +8,10 @@ const defaultCookieOptions = {
   maxAge: JWT_EXPIRE * 24 * 60 * 60 * 1000,
 };
 
+const tokenExists = (req, tokenName) => {
+  return req.cookies[tokenName] ? true : false;
+};
+
 const generateToken = (userId, tokenName, tokenAge, options = {}) => {
   if (!userId) return null;
   const token = jwt.sign({ userId }, JWT_SECRET, {
@@ -37,4 +41,4 @@ const destroyToken = (tokenName, options = {}) => {
   ];
 };
 
-export { destroyToken, generateToken };
+export { destroyToken, generateToken, tokenExists };

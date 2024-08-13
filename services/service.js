@@ -5,6 +5,13 @@ export default class Service {
     if (!this.model) throw new Error('Model not set');
   }
 
+  static async checkIfExists(filter) {
+    this._checkModel();
+    const record = await this.model.exists(filter);
+    if (record) return record;
+    return null;
+  }
+
   static async getAll() {
     this._checkModel();
     return this.model.find();

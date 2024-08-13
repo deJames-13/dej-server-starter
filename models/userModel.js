@@ -36,7 +36,7 @@ User.methods.matchPassword = async function (password) {
 
 User.pre('save', async function (next) {
   if (this.isModified('password'))
-    this.password = await this.statics.hashPassword(this.password);
+    this.password = await this.constructor.hashPassword(this.password);
   next();
 });
 export default User.makeModel();
