@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../env/index.js';
+import { JWT_SECRET } from '../config/env.js';
 import { UserService } from '../services/index.js';
 import { errorHandler } from '../utils/index.js';
 

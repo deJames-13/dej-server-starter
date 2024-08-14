@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWT_EXPIRE, JWT_SECRET, NODE_ENV } from '../env/index.js';
+import { JWT_EXPIRE, JWT_SECRET, NODE_ENV } from '../config/env.js';
 
 const defaultCookieOptions = {
   httpOnly: true,

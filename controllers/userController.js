@@ -5,7 +5,7 @@ import { userCreateRules, userUpdateRules } from '../validations/index.js';
 import { UserResource } from './../resources/index.js';
 import Controller from './controller.js';
 
-export default class UserController extends Controller {
+class UserController extends Controller {
   // @desc    Get all users
   // route    GET /api/users
   // @access  Public
@@ -118,3 +118,4 @@ export default class UserController extends Controller {
     });
   });
 }
+export default UserController;
