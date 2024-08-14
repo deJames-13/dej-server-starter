@@ -28,7 +28,10 @@ class UserService extends Service {
   }
 
   static async updateUser(id, body) {
-    const userExists = await this.checkIfExists({ email: body.email });
+    const userExists = await this.checkIfExists({
+      email: body.email,
+      _id: { $ne: id },
+    });
     if (userExists) throw new Error('User with that email already exists!');
 
     const data = User.filterFillables(body);
