@@ -34,8 +34,8 @@ class UserController extends Controller {
   // route    POST /api/users
   // @access  Public
   static register = asyncHandler(async (req, res) => {
-    utils.tokenExists(req, UserService.authToken) &&
-      utils.errorHandler({ res, message: 'Already authenticated!' });
+    if (utils.tokenExists(req, UserService.authToken))
+      return utils.errorHandler({ res, message: 'Already authenticated!' });
 
     const validData = await utils.validate(req, res, userCreateRules);
 
@@ -54,12 +54,12 @@ class UserController extends Controller {
   // route    POST /api/users/authenticate
   // @access  Public
   static authenticate = asyncHandler(async (req, res) => {
-    utils.tokenExists(req, UserService.authToken) &&
-      utils.errorHandler({ res, message: 'Already authenticated!' });
+    if (utils.tokenExists(req, UserService.authToken))
+      return utils.errorHandler({ res, message: 'Already authenticated!' });
 
     const { email, password } = req.body;
     const { user, token } = await UserService.authenticate(email, password);
-    if (!user)
+    if (!user?._id)
       return utils.errorHandler({ res, message: 'Invalid credentials' });
 
     res.cookie(...token);
