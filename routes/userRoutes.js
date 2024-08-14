@@ -2,17 +2,48 @@ import { Router } from 'express';
 import { protect } from '../middleware/index.js';
 import { UserController } from './../controllers/index.js';
 
+const endpoints = [
+  {
+    path: '/',
+    method: 'get',
+    controller: [UserController.getUsers],
+  },
+  {
+    path: '/:id',
+    method: 'get',
+    controller: [UserController.getUser],
+  },
+  {
+    path: '/',
+    method: 'post',
+    controller: [UserController.register],
+  },
+  {
+    path: '/authenticate',
+    method: 'post',
+    controller: [UserController.authenticate],
+  },
+  {
+    path: '/logout',
+    method: 'post',
+    controller: [protect, UserController.logout],
+  },
+  {
+    path: '/profile',
+    method: 'get',
+    controller: [protect, UserController.getProfile],
+  },
+  {
+    path: '/profile',
+    method: 'put',
+    controller: [protect, UserController.updateProfile],
+  },
+];
+
 const userRouter = Router();
 
-userRouter.post('/', UserController.register);
-userRouter.post('/authenticate', UserController.authenticate);
-
-userRouter.get('/', UserController.getUsers);
-userRouter.post('/logout', protect, UserController.logout);
-
-userRouter
-  .route('/profile')
-  .get(protect, UserController.getProfile)
-  .put(protect, UserController.updateProfile);
+endpoints.forEach((endpoint) => {
+  userRouter[endpoint.method](endpoint.path, ...endpoint.controller);
+});
 
 export default userRouter;
