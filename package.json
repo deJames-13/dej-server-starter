@@ -12,7 +12,8 @@
     "url": "git+https://github.com/deJames-13/dej-server-starter.git"
   },
   "_moduleAliases": {
-    "@config": "./config/*"
+    "@controllers": "./controllers",
+    "@middleware": "./middleware"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
