@@ -1,10 +1,9 @@
-import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
 import { UserService } from '../services/index.js';
 import { errorHandler } from '../utils/index.js';
 
-const protect = asyncHandler(async (req, res, next) => {
+const protect = async (req, res, next) => {
   let token = req.cookies.jwt || req.cookies[UserService.authToken];
 
   if (!token)
@@ -26,6 +25,6 @@ const protect = asyncHandler(async (req, res, next) => {
       message: 'Unauthorized: Invalid token.',
     });
   }
-});
+};
 
 export { protect };

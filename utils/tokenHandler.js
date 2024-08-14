@@ -9,6 +9,7 @@ const defaultCookieOptions = {
 };
 
 const tokenExists = (req, tokenName) => {
+  console.log(req.cookies[tokenName]);
   return req.cookies[tokenName] ? true : false;
 };
 
