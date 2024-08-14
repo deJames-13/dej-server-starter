@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import asyncHandler from 'express-async-handler';
 
-const wrapAsync = (handlers) =>
+export const wrapAsync = (handlers) =>
   handlers.map((handler) => asyncHandler(handler));
 
-export default (endpoints = []) => {
+export const endpointsHandler = (endpoints = []) => {
   const router = Router();
   if (!endpoints.length) return router;
 
@@ -19,6 +19,21 @@ export default (endpoints = []) => {
 
     router[method](path, ...handlers);
   });
-
   return router;
+};
+
+export const routesHandler = (routes = []) => {
+  const rootRouter = Router();
+  if (!routes.length) return rootRouter;
+
+  routes.forEach((route) => {
+    let { url, router } = route;
+
+    if (!url || !router) return;
+    else if (Array.isArray(router)) router = endpointsHandler(router);
+    else if (typeof router !== 'function') return;
+
+    rootRouter.use(url, router);
+  });
+  return rootRouter;
 };

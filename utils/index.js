@@ -1,3 +1,4 @@
-export { errorHandler, successHandler } from './responseHandler.js';
-export { destroyToken, generateToken, tokenExists } from './tokenHandler.js';
-export { validate } from './validate.js';
+export * from './responseHandler.js';
+export * from './routesHandler.js';
+export * from './tokenHandler.js';
+export * from './validate.js';
