@@ -8,7 +8,7 @@ const validate = async (req, res, validationRules) => {
     const errorMessages = errors
       .array()
       .map((err) => err.msg)
-      .join('. ');
+      .join('\n');
     throw new ValidationError(errorMessages, errors.array());
   }
   return matchedData(req);
