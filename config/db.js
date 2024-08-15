@@ -1,6 +1,12 @@
 import mongoose from 'mongoose';
 
 const connectDB = async (uri, success = () => {}, error = () => []) => {
+  if (!uri || typeof uri !== 'string') {
+    console.log(
+      'Invalid URI. Please provide a valid MongoDB URI to start the connection.'
+    );
+    return;
+  }
   return mongoose
     .connect(uri)
     .then(() => {
