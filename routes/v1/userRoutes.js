@@ -1,40 +1,41 @@
 import { UserController } from './../../controllers/index.js';
 import { protect } from './../../middleware/index.js';
 
+const controller = UserController;
 export default [
   {
     path: '/',
     method: 'get',
-    controller: UserController.getUsers,
+    controller: controller.getALl,
   },
   {
     path: '/:id',
     method: 'get',
-    controller: UserController.getUser,
+    controller: controller.getUser,
   },
   {
     path: '/',
     method: 'post',
-    controller: UserController.register,
+    controller: controller.register,
   },
   {
     path: '/authenticate',
     method: 'post',
-    controller: UserController.authenticate,
+    controller: controller.authenticate,
   },
   {
     path: '/logout',
     method: 'post',
-    controller: [protect, UserController.logout],
+    controller: [protect, controller.logout],
   },
   {
     path: '/profile',
     method: 'get',
-    controller: [protect, UserController.getProfile],
+    controller: [protect, controller.getProfile],
   },
   {
     path: '/profile',
     method: 'put',
-    controller: [protect, UserController.updateProfile],
+    controller: [protect, controller.updateProfile],
   },
 ];

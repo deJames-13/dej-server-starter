@@ -8,10 +8,24 @@ const defaultCookieOptions = {
   maxAge: JWT_EXPIRE * 24 * 60 * 60 * 1000,
 };
 
+/**
+ * Checks if a token exists in the request cookies.
+ * @param {Object} req - The request object.
+ * @param {string} tokenName - The name of the token.
+ * @returns {boolean} - True if the token exists, false otherwise.
+ */
 const tokenExists = (req, tokenName) => {
   return req.cookies[tokenName] ? true : false;
 };
 
+/**
+ * Generates a JWT token and returns it along with cookie options.
+ * @param {string} userId - The user ID to include in the token payload.
+ * @param {string} [tokenName='jwt'] - The name of the token.
+ * @param {number} [tokenAge=JWT_EXPIRE * 24 * 60 * 60 * 1000] - The age of the token in milliseconds.
+ * @param {Object} [options={}] - Additional cookie options.
+ * @returns {Array|null} - An array containing the token name, token, and cookie options, or null if userId is not provided.
+ */
 const generateToken = (userId, tokenName, tokenAge, options = {}) => {
   if (!userId) return null;
   const token = jwt.sign({ userId }, JWT_SECRET, {
@@ -29,6 +43,12 @@ const generateToken = (userId, tokenName, tokenAge, options = {}) => {
   ];
 };
 
+/**
+ * Destroys a JWT token by setting its maxAge to 0.
+ * @param {string} [tokenName='jwt'] - The name of the token.
+ * @param {Object} [options={}] - Additional cookie options.
+ * @returns {Array} - An array containing the token name, an empty string, and cookie options with maxAge set to 0.
+ */
 const destroyToken = (tokenName, options = {}) => {
   return [
     tokenName || 'jwt',
