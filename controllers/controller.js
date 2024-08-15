@@ -3,11 +3,8 @@ export default class Controller {
   error = utils.errorHandler;
   success = utils.successHandler;
   validator = utils.validate;
-
-  constructor(service, resource) {
-    this.service = service;
-    this.resource = resource;
-  }
+  service;
+  resource;
 
   // controller functions
   getALl = async (req, res) => {

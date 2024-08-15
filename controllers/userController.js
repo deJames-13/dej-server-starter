@@ -5,9 +5,8 @@ import { UserResource } from './../resources/index.js';
 import Controller from './controller.js';
 
 class UserController extends Controller {
-  constructor() {
-    super(UserService, UserResource);
-  }
+  service = UserService;
+  resource = UserResource;
 
   // @desc    Register a new user
   // route    POST /api/users
