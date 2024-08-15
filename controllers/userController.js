@@ -17,7 +17,7 @@ class UserController extends Controller {
 
     const validData = await this.validator(req, res, userCreateRules);
     const { user, token } = await this.service.registerUser(validData);
-    if (!user._id) this.error({ res, message: 'Invalid user data!' });
+    if (!user._id) throw new Error('Invalid user data!');
 
     res.cookie(...token);
     this.success({
@@ -36,7 +36,7 @@ class UserController extends Controller {
 
     const { email, password } = req.body;
     const { user, token } = await this.service.authenticate(email, password);
-    if (!user?._id) return this.error({ res, message: 'Invalid credentials' });
+    if (!user?._id) throw new Error('Invalid credentials!');
 
     res.cookie(...token);
     this.success({
@@ -84,7 +84,7 @@ class UserController extends Controller {
 
     const validData = await this.validator(req, res, userUpdateRules);
     const user = await this.service.updateUser(req.user._id, validData);
-    if (!user) return this.error({ res, message: 'Invalid user data!' });
+    if (!user) throw new Error('Invalid user data!');
 
     this.success({
       res,
