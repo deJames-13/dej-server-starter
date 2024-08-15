@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from 'express-validator';
-import { errorHandler } from './responseHandler.js';
+import ValidationError from '../errors/validationError.js';
 
 const validate = async (req, res, validationRules) => {
   await Promise.all(validationRules().map((rule) => rule.run(req)));
@@ -9,12 +9,7 @@ const validate = async (req, res, validationRules) => {
       .array()
       .map((err) => err.msg)
       .join('. ');
-    return errorHandler({
-      res,
-      statusCode: 422,
-      message: errorMessages,
-      errors: errors.array(),
-    });
+    throw new ValidationError(errorMessages, errors.array());
   }
   return matchedData(req);
 };
