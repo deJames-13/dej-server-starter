@@ -1,5 +1,5 @@
 import { validationResult } from 'express-validator';
-import { errorHandler } from '../utils/index.js';
+import { ValidationError } from '../errors/index.js';
 
 const validate = (req, res, next) => {
   const errors = validationResult(req);
@@ -8,12 +8,7 @@ const validate = (req, res, next) => {
       .array()
       .map((err) => err.msg)
       .join('. ');
-    return errorHandler({
-      res,
-      statusCode: 422,
-      message: errorMessages,
-      errors: errors.array(),
-    });
+    throw new ValidationError(errorMessages, errors.array());
   }
   next();
 };
