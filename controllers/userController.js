@@ -1,120 +1,97 @@
 import { UserService } from '../services/index.js';
-import * as utils from '../utils/index.js';
+import { tokenExists } from '../utils/index.js';
 import { userCreateRules, userUpdateRules } from '../validations/index.js';
 import { UserResource } from './../resources/index.js';
 import Controller from './controller.js';
 
 class UserController extends Controller {
-  // @desc    Get all users
-  // route    GET /api/users
-  // @access  Public
-  async getUsers(req, res) {
-    const users = await UserService.getAll();
-    utils.successHandler({
-      res,
-      message: 'Users!',
-      users: UserResource.collection(users),
-    });
-  }
-
-  // @desc    Get first user that match the id
-  // route    GET /api/users
-  // @access  Public
-  async getUser(req, res) {
-    let user = await UserService.getById(req.params.id);
-    utils.successHandler({
-      res,
-      message: 'User!',
-      user: UserResource.make(user),
-    });
+  constructor() {
+    super(UserService, UserResource);
   }
 
   // @desc    Register a new user
   // route    POST /api/users
   // @access  Public
-  async register(req, res) {
-    if (utils.tokenExists(req, UserService.authToken))
-      return utils.errorHandler({ res, message: 'Already authenticated!' });
+  register = async (req, res) => {
+    if (tokenExists(req, this.service.authToken))
+      return this.error({ res, message: 'Already authenticated!' });
 
-    const validData = await utils.validate(req, res, userCreateRules);
-
-    const { user, token } = await UserService.registerUser(validData);
-    if (!user._id) utils.errorHandler({ res, message: 'Invalid user data!' });
+    const validData = await this.validator(req, res, userCreateRules);
+    const { user, token } = await this.service.registerUser(validData);
+    if (!user._id) this.error({ res, message: 'Invalid user data!' });
 
     res.cookie(...token);
-    utils.successHandler({
+    this.success({
       res,
       message: 'Registered!',
-      user: UserResource.make(user),
+      user: this.resource.make(user),
     });
-  }
+  };
 
   // @desc    Authenticate user & get token
   // route    POST /api/users/authenticate
   // @access  Public
-  async authenticate(req, res) {
-    if (utils.tokenExists(req, UserService.authToken))
-      return utils.errorHandler({ res, message: 'Already authenticated!' });
+  authenticate = async (req, res) => {
+    if (tokenExists(req, this.service.authToken))
+      return this.error({ res, message: 'Already authenticated!' });
 
     const { email, password } = req.body;
-    const { user, token } = await UserService.authenticate(email, password);
-    if (!user?._id)
-      return utils.errorHandler({ res, message: 'Invalid credentials' });
+    const { user, token } = await this.service.authenticate(email, password);
+    if (!user?._id) return this.error({ res, message: 'Invalid credentials' });
 
     res.cookie(...token);
-    utils.successHandler({
+    this.success({
       res,
       message: 'Authenticated!',
-      user: UserResource.make(user),
+      user: this.resource.make(user),
     });
-  }
+  };
 
   // @desc    Log user out
   // route    POST /api/users/logout
   // @access  Public
-  async logout(req, res) {
-    const token = await UserService.logout();
+  logout = async (req, res) => {
+    const token = await this.service.logout();
 
     res.cookie(...token);
-    utils.successHandler({ res, message: 'Logged out!' });
-  }
+    this.success({ res, message: 'Logged out!' });
+  };
 
   // @desc    Get user profile
   // route    GET /api/users/profile
   // @access  Private
-  async getProfile(req, res) {
+  getProfile = async (req, res) => {
     const user = req.user;
 
     if (!user._id)
-      return utils.errorHandler({
+      return this.error({
         res,
         statusCode: 401,
         message: 'Unauthorized',
       });
 
-    utils.successHandler({
+    this.success({
       res,
       message: 'Profile fetch successfully!',
-      user: UserResource.make(user),
+      user: this.resource.make(user),
     });
-  }
+  };
 
   // @desc    Update user profile
   // route    PUT /api/users/profile
   // @access  Private
-  async updateProfile(req, res) {
+  updateProfile = async (req, res) => {
     req.body = { ...req.user.toObject(), ...req.body };
 
-    const validData = await utils.validate(req, res, userUpdateRules);
-    const user = await UserService.updateUser(req.user._id, validData);
-    if (!user)
-      return utils.errorHandler({ res, message: 'Invalid user data!' });
+    const validData = await this.validator(req, res, userUpdateRules);
+    const user = await this.service.updateUser(req.user._id, validData);
+    if (!user) return this.error({ res, message: 'Invalid user data!' });
 
-    utils.successHandler({
+    this.success({
       res,
       message: 'Profile updated!',
-      user: UserResource.make(user),
+      user: this.resource.make(user),
     });
-  }
+  };
 }
 export default new UserController();
