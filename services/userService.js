@@ -3,10 +3,10 @@ import { destroyToken, generateToken } from '../utils/index.js';
 import Service from './service.js';
 
 class UserService extends Service {
-  static model = User;
-  static authToken = 'jwt';
+  model = User;
+  authToken = 'jwt';
 
-  static async registerUser(body) {
+  async registerUser(body) {
     const userExists = await this.checkIfExists({ email: body.email });
     if (userExists) throw new Error('User with that email already exists!');
 
@@ -15,7 +15,7 @@ class UserService extends Service {
     return { user, token };
   }
 
-  static async authenticate(email, password) {
+  async authenticate(email, password) {
     let user = await User.findOne({ email });
     if (!user || !(user && (await user.matchPassword(password)))) user = null;
     const token = user && generateToken(user._id, this.authToken);
@@ -23,11 +23,11 @@ class UserService extends Service {
     return { user, token };
   }
 
-  static async logout() {
+  async logout() {
     return destroyToken(this.authToken);
   }
 
-  static async updateUser(id, body) {
+  async updateUser(id, body) {
     const userExists = await this.checkIfExists({
       email: body.email,
       _id: { $ne: id },
@@ -41,4 +41,4 @@ class UserService extends Service {
   }
 }
 
-export default UserService;
+export default new UserService();

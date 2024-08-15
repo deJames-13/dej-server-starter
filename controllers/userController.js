@@ -8,31 +8,31 @@ class UserController extends Controller {
   // @desc    Get all users
   // route    GET /api/users
   // @access  Public
-  static getUsers = async (req, res) => {
+  async getUsers(req, res) {
     const users = await UserService.getAll();
     utils.successHandler({
       res,
       message: 'Users!',
       users: UserResource.collection(users),
     });
-  };
+  }
 
   // @desc    Get first user that match the id
   // route    GET /api/users
   // @access  Public
-  static getUser = async (req, res) => {
+  async getUser(req, res) {
     let user = await UserService.getById(req.params.id);
     utils.successHandler({
       res,
       message: 'User!',
       user: UserResource.make(user),
     });
-  };
+  }
 
   // @desc    Register a new user
   // route    POST /api/users
   // @access  Public
-  static register = async (req, res) => {
+  async register(req, res) {
     if (utils.tokenExists(req, UserService.authToken))
       return utils.errorHandler({ res, message: 'Already authenticated!' });
 
@@ -47,12 +47,12 @@ class UserController extends Controller {
       message: 'Registered!',
       user: UserResource.make(user),
     });
-  };
+  }
 
   // @desc    Authenticate user & get token
   // route    POST /api/users/authenticate
   // @access  Public
-  static authenticate = async (req, res) => {
+  async authenticate(req, res) {
     if (utils.tokenExists(req, UserService.authToken))
       return utils.errorHandler({ res, message: 'Already authenticated!' });
 
@@ -67,22 +67,22 @@ class UserController extends Controller {
       message: 'Authenticated!',
       user: UserResource.make(user),
     });
-  };
+  }
 
   // @desc    Log user out
   // route    POST /api/users/logout
   // @access  Public
-  static logout = async (req, res) => {
+  async logout(req, res) {
     const token = await UserService.logout();
 
     res.cookie(...token);
     utils.successHandler({ res, message: 'Logged out!' });
-  };
+  }
 
   // @desc    Get user profile
   // route    GET /api/users/profile
   // @access  Private
-  static getProfile = async (req, res) => {
+  async getProfile(req, res) {
     const user = req.user;
 
     if (!user._id)
@@ -97,12 +97,12 @@ class UserController extends Controller {
       message: 'Profile fetch successfully!',
       user: UserResource.make(user),
     });
-  };
+  }
 
   // @desc    Update user profile
   // route    PUT /api/users/profile
   // @access  Private
-  static updateProfile = async (req, res) => {
+  async updateProfile(req, res) {
     req.body = { ...req.user.toObject(), ...req.body };
 
     const validData = await utils.validate(req, res, userUpdateRules);
@@ -115,6 +115,6 @@ class UserController extends Controller {
       message: 'Profile updated!',
       user: UserResource.make(user),
     });
-  };
+  }
 }
-export default UserController;
+export default new UserController();
