@@ -1,5 +1,5 @@
-import { UserController } from '#controllers';
 import { protect } from '#middlewares';
+import UserController from './userController.js';
 
 const controller = UserController;
 export default [

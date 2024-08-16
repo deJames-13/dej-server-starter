@@ -12,20 +12,14 @@
     "url": "git+https://github.com/deJames-13/dej-server-starter.git"
   },
   "imports": {
-    "#controllers": "./controllers/index.js",
     "#middlewares": "./middlewares/index.js",
-    "#validations": "./validations/index.js",
-    "#models": "./models/index.js",
-    "#resources": "./resources/index.js",
-    "#services": "./services/index.js",
+    "#middlewares/": "./middlewares/*.js",
+    "#common": "./common/index.js",
+    "#common/": "./common/*.js",
     "#utils": "./utils/index.js",
-    "#controllers/*": "./controllers/*.js",
-    "#middlewares/*": "./middlewares/*.js",
-    "#validations/*": "./validations/*.js",
-    "#models/*": "./models/*.js",
-    "#resources/*": "./resources/*.js",
-    "#services/*": "./services/*.js",
-    "#utils/*": "./utils/*.js"
+    "#utils/*": "./utils/*.js",
+    "#features": "./features/index.js",
+    "#features/": "./features/*"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

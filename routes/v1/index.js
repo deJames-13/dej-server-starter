@@ -1,4 +1,4 @@
-import userRoutes from './userRoutes.js';
+import { userRoutes } from '#features';
 
 const v1 = [
   {

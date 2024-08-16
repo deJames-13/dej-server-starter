@@ -1,4 +1,4 @@
-import { routesHandler } from '../utils/index.js';
+import { routesHandler } from '#utils';
 import v1 from './v1/index.js';
 
 const router = routesHandler([

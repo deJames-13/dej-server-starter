@@ -1,4 +1,4 @@
-import { UserService } from '#services';
+import { UserService } from '#features';
 import { errorHandler } from '#utils';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
