@@ -20,8 +20,8 @@ export default [
     rules: {
       // Your custom rules here
       // For example:
-      // 'no-console': 'warn',
       // curly: 'error',
+      // 'no-console': 'warn',
       eqeqeq: 'error',
       'no-var': 'warn',
       'no-unused-vars': 'warn',
