@@ -4,7 +4,7 @@ import UserResource from './userResource.js';
 import UserService from './userService.js';
 import { userCreateRules, userUpdateRules } from './userValidation.js';
 
-export default class UserController extends Controller {
+class UserController extends Controller {
   service = UserService;
   resource = UserResource;
 
@@ -93,3 +93,4 @@ export default class UserController extends Controller {
     });
   };
 }
+export default new UserController();
