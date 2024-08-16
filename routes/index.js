@@ -1,5 +1,5 @@
 import { routesHandler } from '#utils';
-import v1 from './v1/index.js';
+import v1 from './v1.js';
 
 const router = routesHandler([
   {
