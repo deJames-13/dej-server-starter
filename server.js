@@ -1,8 +1,8 @@
 import { connectDB, MONGO_URI, PORT } from '#config';
+import * as error from '#middlewares/errorMiddleware';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import path from 'path';
-import * as err from './middlewares/errorMiddleware.js';
 import router from './routes/index.js';
 
 const production = (app) => {
@@ -33,8 +33,8 @@ const server = () => {
 
   production(app);
 
-  app.use(err.notFound);
-  app.use(err.errorHandler);
+  app.use(error.notFound);
+  app.use(error.errorMiddleware);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

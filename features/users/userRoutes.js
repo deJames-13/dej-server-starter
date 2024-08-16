@@ -1,4 +1,4 @@
-import { protect } from '#middlewares';
+import { protect } from '#middlewares/authMiddleware';
 import UserController from './userController.js';
 
 const controller = UserController;
