@@ -1,7 +1,7 @@
+import { UserService } from '#services';
+import { errorHandler } from '#utils';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
-import { UserService } from '../services/index.js';
-import { errorHandler } from '../utils/index.js';
 
 const protect = async (req, res, next) => {
   let token = req.cookies.jwt || req.cookies[UserService.authToken];
@@ -23,6 +23,7 @@ const protect = async (req, res, next) => {
       res,
       statusCode: 401,
       message: 'Unauthorized: Invalid token.',
+      details: e,
     });
   }
 };

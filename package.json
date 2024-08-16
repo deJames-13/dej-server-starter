@@ -11,9 +11,21 @@
     "type": "git",
     "url": "git+https://github.com/deJames-13/dej-server-starter.git"
   },
-  "_moduleAliases": {
-    "@controllers": "./controllers",
-    "@middleware": "./middleware"
+  "imports": {
+    "#controllers": "./controllers/index.js",
+    "#middlewares": "./middlewares/index.js",
+    "#validations": "./validations/index.js",
+    "#models": "./models/index.js",
+    "#resources": "./resources/index.js",
+    "#services": "./services/index.js",
+    "#utils": "./utils/index.js",
+    "#controllers/*": "./controllers/*.js",
+    "#middlewares/*": "./middlewares/*.js",
+    "#validations/*": "./validations/*.js",
+    "#models/*": "./models/*.js",
+    "#resources/*": "./resources/*.js",
+    "#services/*": "./services/*.js",
+    "#utils/*": "./utils/*.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -26,6 +38,9 @@
     "mongoose": "^8.5.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0",
     "nodemon": "^3.1.4"
   },
   "keywords": [

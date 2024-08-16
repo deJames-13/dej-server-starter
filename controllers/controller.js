@@ -1,4 +1,4 @@
-import * as utils from '../utils/index.js';
+import * as utils from '#utils';
 export default class Controller {
   service;
   resource;
