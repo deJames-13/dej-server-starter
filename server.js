@@ -1,8 +1,8 @@
 import { connectDB, MONGO_URI, PORT } from '#config';
-import * as err from '#middlewares';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import path from 'path';
+import { errorHandler, notFound } from './middlewares/errorMiddleware.js';
 import router from './routes/index.js';
 
 const server = () => {
@@ -29,8 +29,8 @@ const server = () => {
     });
   }
 
-  app.use(err.notFound);
-  app.use(err.errorHandler);
+  app.use(notFound);
+  app.use(errorHandler);
 
   connectDB(MONGO_URI, () => {
     app.listen(PORT, () => {
