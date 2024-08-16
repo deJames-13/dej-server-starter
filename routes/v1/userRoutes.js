@@ -1,5 +1,5 @@
-import { UserController } from './../../controllers/index.js';
-import { protect } from './../../middlewares/index.js';
+import { UserController } from '#controllers';
+import { protect } from '#middlewares';
 
 const controller = UserController;
 export default [
