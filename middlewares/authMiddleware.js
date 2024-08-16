@@ -23,6 +23,7 @@ const protect = async (req, res, next) => {
       res,
       statusCode: 401,
       message: 'Unauthorized: Invalid token.',
+      details: e,
     });
   }
 };
