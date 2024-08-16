@@ -16,6 +16,7 @@ export default [
         console: 'readonly',
       },
     },
+
     rules: {
       // Your custom rules here
       // For example:
