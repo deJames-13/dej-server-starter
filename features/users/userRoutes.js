@@ -1,7 +1,7 @@
 import { protect } from '#middlewares';
 import UserController from './userController.js';
 
-const controller = UserController;
+const controller = new UserController();
 export default [
   {
     path: '/',
