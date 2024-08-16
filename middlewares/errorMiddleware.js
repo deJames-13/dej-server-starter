@@ -1,10 +1,10 @@
-const notFound = (req, res, next) => {
+export const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
   next(error);
 };
 
-const errorHandler = (err, req, res) => {
+export const errorHandler = (err, req, res) => {
   let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   let message = err.message || 'Internal Server Error';
 
@@ -20,5 +20,3 @@ const errorHandler = (err, req, res) => {
     stack: process.env.NODE_ENV === 'production' ? null : err.stack,
   });
 };
-
-export { errorHandler, notFound };

@@ -18,8 +18,9 @@
     "#common/": "./common/*.js",
     "#utils": "./utils/index.js",
     "#utils/*": "./utils/*.js",
-    "#features": "./features/index.js",
-    "#features/": "./features/*"
+    "#config": "./config/index.js",
+    "#config/*": "./config/*.js",
+    "#features": "./features/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -3,7 +3,7 @@ import { errorHandler } from '#utils';
 import jwt from 'jsonwebtoken';
 import { JWT_SECRET } from '../config/env.js';
 
-const protect = async (req, res, next) => {
+export const protect = async (req, res, next) => {
   let token = req.cookies.jwt || req.cookies[UserService.authToken];
 
   if (!token)
@@ -27,5 +27,3 @@ const protect = async (req, res, next) => {
     });
   }
 };
-
-export { protect };

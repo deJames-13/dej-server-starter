@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectDB = async (uri, success = () => {}, error = () => []) => {
+export const connectDB = async (uri, success = () => {}, error = () => []) => {
   if (!uri || typeof uri !== 'string') {
     console.log(
       'Invalid URI. Please provide a valid MongoDB URI to start the connection.'
@@ -18,5 +18,3 @@ const connectDB = async (uri, success = () => {}, error = () => []) => {
       error();
     });
 };
-
-export { connectDB };
