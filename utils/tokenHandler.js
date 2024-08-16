@@ -29,7 +29,7 @@ const tokenExists = (req, tokenName) => {
 const generateToken = (userId, tokenName, tokenAge, options = {}) => {
   if (!userId) return null;
   const token = jwt.sign({ userId }, JWT_SECRET, {
-    expiresIn: `${JWT_EXPIRE}d` || '30d',
+    expiresIn: `${JWT_EXPIRE || 30}d`,
   });
 
   return [

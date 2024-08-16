@@ -38,6 +38,9 @@
     "mongoose": "^8.5.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.9.0",
+    "eslint": "^9.9.0",
+    "globals": "^15.9.0",
     "nodemon": "^3.1.4"
   },
   "keywords": [
