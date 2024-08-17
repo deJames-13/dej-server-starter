@@ -1,8 +1,9 @@
+import { FEATURES_URL } from '#constants';
 import * as features from '#features';
 
 const v1 = [
   {
-    url: '/users',
+    url: FEATURES_URL.USERS,
     router: features.userRoutes,
   },
 ];

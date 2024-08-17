@@ -1,5 +1,5 @@
 import { Controller } from '#lib';
-import { tokenExists } from '#utils';
+import { Errors, tokenExists } from '#utils';
 import UserResource from './userResource.js';
 import UserService from './userService.js';
 import { userCreateRules, userUpdateRules } from './userValidation.js';
@@ -21,7 +21,7 @@ class UserController extends Controller {
 
     const validData = await this.validator(req, res, this.rules.create);
     const { user, token } = await this.service.registerUser(validData);
-    if (!user._id) return this.error({ res, message: 'Invalid user data!' });
+    if (!user._id) throw new Error('Invalid user data!');
 
     res.cookie(...token);
     this.success({
@@ -36,11 +36,11 @@ class UserController extends Controller {
   // @access  Public
   authenticate = async (req, res) => {
     if (tokenExists(req, this.service.authToken))
-      return this.error({ res, message: 'Already authenticated!' });
+      throw new Errors.BadRequest('Already authenticated!');
 
     const { email, password } = req.body;
     const { user, token } = await this.service.authenticate(email, password);
-    if (!user?._id) return this.error({ res, message: 'Invalid credentials!' });
+    if (!user?._id) throw new Errors.BadRequest('Invalid credentials!');
 
     res.cookie(...token);
     this.success({
@@ -66,12 +66,7 @@ class UserController extends Controller {
   getProfile = async (req, res) => {
     const user = req.user;
 
-    if (!user._id)
-      return this.error({
-        res,
-        statusCode: 401,
-        message: 'Unauthorized',
-      });
+    if (!user._id) throw new Errors.BadRequest('Invalid user data!');
 
     this.success({
       res,
@@ -86,7 +81,7 @@ class UserController extends Controller {
   updateProfile = async (req, res) => {
     const validData = await this.validator(req, res, this.rules.update);
     const user = await this.service.updateUser(req.user._id, validData);
-    if (!user) return this.error({ res, message: 'Invalid user data!' });
+    if (!user) throw new Errors.BadRequest('Invalid user data!');
 
     this.success({
       res,

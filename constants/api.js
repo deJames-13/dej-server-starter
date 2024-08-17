@@ -1,9 +1,27 @@
+export const VERSIONS = {
+  V1: '/v1',
+};
+
 export const METHODS = {
   GET: 'GET',
   POST: 'POST',
   PUT: 'PUT',
   PATCH: 'PATCH',
   DELETE: 'DELETE',
+};
+
+export const HEADERS = {
+  AUTHORIZATION: 'Authorization',
+  CONTENT_TYPE: 'Content-Type',
+};
+
+export const CONTENT_TYPE = {
+  APPLICATION_JSON: 'application/json',
+};
+
+export const STATUS = {
+  SUCCESS: 'success',
+  ERROR: 'error',
 };
 
 export const PATHS = {

@@ -40,8 +40,15 @@ const errorSchema = [
 const generateErrorClasses = (schema) => {
   return schema.reduce((acc, { name, message, statusCode }) => {
     acc[name] = class extends AppError {
-      constructor({ message: customMessage = message, ...details } = {}) {
-        super({ name: name, message: customMessage, statusCode, ...details });
+      constructor(arg = {}) {
+        let details;
+        if (typeof arg === 'string') {
+          message = arg;
+          details = {};
+        } else {
+          ({ message: message = message, ...details } = arg);
+        }
+        super({ name, message, statusCode, ...details });
       }
     };
     return acc;

@@ -1,3 +1,6 @@
+import { NODE_ENV } from '#config';
+import { APP } from '#constants';
+
 export const notFound = (req, res, next) => {
   const error = new Error(`Not Found - ${req.originalUrl}`);
   res.status(404);
@@ -18,6 +21,6 @@ export const errorMiddleware = (err, req, res, next) => {
     message,
     statusCode,
     status: err.name,
-    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+    stack: NODE_ENV === APP.STATUS.PRODUCTION ? null : err.stack,
   });
 };

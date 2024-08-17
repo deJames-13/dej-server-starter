@@ -1,4 +1,4 @@
-export const RESOURCE_ALIASES = {
+export const ALIASES = {
   ID: 'id',
   EDIT: 'edit',
   ROOT: 'root',
@@ -16,11 +16,11 @@ export const RESOURCE_ALIASES = {
   WITHOUT_PASSWORD: '-password',
 };
 
-export const RESOURCE_FEATURES = {
-  USERS: 'users',
+export const FEATURES_URL = {
+  USERS: '/users',
 };
 
 export const RESOURCES = {
-  ALIASES: RESOURCE_ALIASES,
-  FEATURES: RESOURCE_FEATURES,
+  ALIASES,
+  FEATURES_URL,
 };
