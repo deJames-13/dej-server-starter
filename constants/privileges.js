@@ -2,11 +2,11 @@ export const ROLES = {
   DEV: 'developer',
   SUPERADMIN: 'superadmin',
   ADMIN: 'admin',
-  USER: 'user',
   STAFF: 'staff',
   EMPLOYEE: 'employee',
   GUEST: 'guest',
   CUSTOMER: 'customer',
+  CUSTOM: 'custom',
 };
 
 export const PERMISSIONS = {
@@ -30,6 +30,8 @@ export const PERMISSIONS = {
   VIEW_REPORTS: 'view_reports',
   GENERATE_REPORTS: 'generate_reports',
   ACCESS_DASHBOARD: 'access_dashboard',
+  CUSTOM_PERMISSION: 'custom_permission',
+  APPLY_CUSTOM_PERMISSION: 'apply_custom_permission',
 };
 
 export const ALL_PERMISSIONS = Object.values(PERMISSIONS);
@@ -67,6 +69,7 @@ export const ADMIN_PERMISSIONS = [
   PERMISSIONS.ASSIGN_ROLES,
   PERMISSIONS.VIEW_LOGS,
 ];
+export const CUSTOM_PERMISSIONS = [PERMISSIONS.CUSTOM_PERMISSION];
 
 export const PRIVILEGES = {
   [ROLES.DEV]: ALL_PERMISSIONS,
@@ -75,5 +78,6 @@ export const PRIVILEGES = {
   [ROLES.STAFF]: DASHBOARD_PERMISSIONS,
   [ROLES.EMPLOYEE]: TRANSACTION_PERMISSIONS,
   [ROLES.GUEST]: READ_ONLY,
-  [ROLES.USER]: READ_WRITE,
+  [ROLES.CUSTOMER]: READ_WRITE,
+  [ROLES.CUSTOM]: CUSTOM_PERMISSIONS,
 };
