@@ -1,7 +1,7 @@
+import { JWT_SECRET } from '#config';
 import { UserService } from '#features';
 import { errorHandler } from '#utils';
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config/env.js';
 
 export const protect = async (req, res, next) => {
   let token = req.cookies.jwt || req.cookies[UserService.authToken];

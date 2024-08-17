@@ -1,4 +1,4 @@
-import { Controller } from '#common';
+import { Controller } from '#lib';
 import { tokenExists } from '#utils';
 import UserResource from './userResource.js';
 import UserService from './userService.js';

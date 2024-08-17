@@ -1,26 +1,27 @@
-import { Model } from '#common';
+import { Schema } from '#common';
 import bcrypt from 'bcryptjs';
 
-const userSchema = [
-  {
-    name: {
-      type: String,
-      required: [true, 'Name is required'],
+const User = new Schema({
+  name: 'User',
+  schema: [
+    {
+      name: {
+        type: String,
+        required: [true, 'Name is required'],
+      },
+      email: {
+        type: String,
+        required: [true, 'Email is required'],
+        unique: [true, 'Email already exists'],
+      },
+      password: {
+        type: String,
+        required: [true, 'Password is required'],
+      },
     },
-    email: {
-      type: String,
-      required: [true, 'Email is required'],
-      unique: [true, 'Email already exists'],
-    },
-    password: {
-      type: String,
-      required: [true, 'Password is required'],
-    },
-  },
-  { timestamps: true },
-];
-
-const User = new Model({ name: 'User', schema: userSchema });
+    { timestamps: true },
+  ],
+});
 
 User.statics.fillables = ['name', 'email', 'password'];
 User.statics.hidden = ['password'];

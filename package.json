@@ -14,8 +14,8 @@
   "imports": {
     "#middlewares": "./middlewares/index.js",
     "#middlewares/*": "./middlewares/*.js",
-    "#common": "./common/index.js",
-    "#common/*": "./common/*.js",
+    "#lib": "./lib/index.js",
+    "#lib/*": "./lib/*.js",
     "#utils": "./utils/index.js",
     "#utils/*": "./utils/*.js",
     "#config": "./config/index.js",
