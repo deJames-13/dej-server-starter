@@ -9,7 +9,7 @@ import Errors from './errors.js';
  * @returns {Object} - The validated and sanitized data.
  * @throws {ValidationError} - If validation fails.
  */
-const validate = async (req, res, validationRules) => {
+export const validate = async (req, res, validationRules) => {
   await Promise.all(validationRules().map((rule) => rule.run(req)));
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -25,4 +25,17 @@ const validate = async (req, res, validationRules) => {
   return matchedData(req);
 };
 
-export { validate };
+export const isUnique =
+  (model, field, exclude = {}) =>
+  async (value) => {
+    const query = { [field]: value };
+    Object.keys(exclude).forEach((key) => {
+      if (query[key]) query[key] = { ...query[key], $ne: exclude[key] };
+      else query[key] = { $ne: exclude[key] };
+    });
+    const existing = await model.findOne(query);
+    if (existing)
+      throw new Errors.Conflict(
+        `${model?.name || 'Resource'} with ${field} already exists!`
+      );
+  };

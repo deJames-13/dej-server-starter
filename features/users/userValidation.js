@@ -1,16 +1,21 @@
+import { isUnique } from '#common';
 import { check } from 'express-validator';
+import UserModel from './userModel.js';
 
 const matchPassword = (value, { req }) => {
   if (value !== req.body.password_confirmation)
     throw new Error('Password does not match!');
-
   return value;
 };
 
 const userCreateRules = () => {
   // METHOD CHAINING
   return [
-    check('email').isEmail().withMessage('Email is invalid'),
+    check('email')
+      .isEmail()
+      .withMessage('Email is invalid')
+      .custom(isUnique(UserModel, 'email'))
+      .withMessage('Email already exists'),
 
     check('name')
       .notEmpty()

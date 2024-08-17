@@ -4,7 +4,7 @@ export class Schema extends mongoose.Schema {
     super(...schema);
     this.name = name;
   }
-  static filterAllowedFields(data) {
+  filterFillables(data) {
     if (!this.fillables?.length) return data;
 
     return Object.keys(data).reduce((acc, key) => {
@@ -25,6 +25,9 @@ export class Schema extends mongoose.Schema {
   }
 
   makeModel() {
-    return mongoose.model(this.name, this);
+    this.statics.filterFillables = this.filterFillables;
+
+    const model = mongoose.model(this.name, this);
+    return model;
   }
 }
