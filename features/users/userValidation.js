@@ -32,7 +32,11 @@ const userCreateRules = () => {
 
 const userUpdateRules = () => {
   return [
-    check('email').isEmail().withMessage('Email is invalid'),
+    check('email')
+      .isEmail()
+      .withMessage('Email is invalid')
+      .custom(isUnique(UserModel, 'email'))
+      .withMessage('Email already exists'),
 
     check('name')
       .optional()

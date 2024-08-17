@@ -1,5 +1,5 @@
 import { Service } from '#lib';
-import { destroyToken, generateToken } from '#utils';
+import { destroyToken, Errors, generateToken } from '#utils';
 import UserModel from './userModel.js';
 
 class UserService extends Service {
@@ -8,7 +8,8 @@ class UserService extends Service {
 
   async registerUser(body) {
     const userExists = await this.checkIfExists({ email: body.email });
-    if (userExists) throw new Error('User with that email already exists!');
+    if (userExists)
+      new Errors.BadRequest('User with that email already exists!');
 
     const user = await this.create(body);
     const token = generateToken(user._id, this.authToken);
@@ -32,7 +33,8 @@ class UserService extends Service {
       email: body.email,
       _id: { $ne: id },
     });
-    if (userExists) throw new Error('User with that email already exists!');
+    if (userExists)
+      throw new Errors.BadRequest('User with that email already exists!');
 
     const data = this.model?.filterFillables(body);
     if (data.password)
