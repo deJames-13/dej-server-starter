@@ -16,6 +16,8 @@
     "#middlewares/*": "./middlewares/*.js",
     "#common": "./common/index.js",
     "#common/*": "./common/*.js",
+    "#constants": "./constants/index.js",
+    "#constants/*": "./constants/*.js",
     "#lib": "./common/lib/index.js",
     "#lib/*": "./common/lib/*.js",
     "#utils": "./common/utils/index.js",
