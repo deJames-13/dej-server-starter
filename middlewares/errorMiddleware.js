@@ -4,8 +4,9 @@ export const notFound = (req, res, next) => {
   next(error);
 };
 
+// eslint-disable-next-line no-unused-vars
 export const errorMiddleware = (err, req, res, next) => {
-  let statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  let statusCode = err?.statusCode || 500;
   let message = err.message || 'Internal Server Error';
 
   if (err.name === 'CastError' && err.kind === 'ObjectId') {

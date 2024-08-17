@@ -1,5 +1,6 @@
 import { JWT_EXPIRE, JWT_SECRET, NODE_ENV } from '#config';
 import jwt from 'jsonwebtoken';
+import { AuthorizationError } from './errors.js';
 
 const defaultCookieOptions = {
   httpOnly: true,
@@ -59,6 +60,18 @@ const destroyToken = (tokenName, options = {}) => {
       ...options,
     },
   ];
+};
+
+export function verifyToken(token) {
+  return jwt.verify(token, JWT_SECRET);
+}
+
+export const getBearerToken = (req) => {
+  console.log(req?.headers);
+  const authHeader = req?.headers.authorization;
+  if (!authHeader) throw new AuthorizationError();
+  const token = authHeader.split(' ')[1];
+  return token;
 };
 
 export { destroyToken, generateToken, tokenExists };
