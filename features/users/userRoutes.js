@@ -1,4 +1,5 @@
-import { protect } from '#middlewares/authMiddleware';
+import { ALL_PERMISSIONS } from '#constants';
+import { protectAndPermit } from '#middlewares/authMiddleware';
 import UserController from './userController.js';
 
 const controller = UserController;
@@ -26,16 +27,19 @@ export default [
   {
     path: '/logout',
     method: 'post',
-    controller: [protect, controller.logout],
+    controller: [...protectAndPermit(), controller.logout],
   },
   {
     path: '/profile',
     method: 'get',
-    controller: [protect, controller.getProfile],
+    controller: [...protectAndPermit(), controller.getProfile],
   },
   {
     path: '/profile',
     method: 'patch',
-    controller: [protect, controller.updateProfile],
+    controller: [
+      ...protectAndPermit(ALL_PERMISSIONS),
+      controller.updateProfile,
+    ],
   },
 ];

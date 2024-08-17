@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from 'express-validator';
-import { ValidationError } from './errors.js';
+import Errors from './errors.js';
 
 /**
  * Validates the request based on the provided validation rules.
@@ -17,7 +17,7 @@ const validate = async (req, res, validationRules) => {
       .array()
       .map((err) => err.msg)
       .join('\n');
-    throw new ValidationError(errorMessages, errors.array());
+    throw new Errors.ValidationError(errorMessages, errors.array());
   }
   return matchedData(req);
 };

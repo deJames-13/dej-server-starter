@@ -1,4 +1,4 @@
-import { ValidationError } from './errors.js';
+import Errors from './errors.js';
 
 /**
  * Handles error responses.
@@ -11,7 +11,8 @@ import { ValidationError } from './errors.js';
  */
 const errorHandler = ({ res, statusCode = 400, message, ...details }) => {
   res.status(statusCode);
-  if (statusCode === 422) throw new ValidationError(message, details.errors);
+  if (statusCode === 422)
+    throw new Errors.ValidationError(message, details.errors);
   throw new Error(message);
 };
 

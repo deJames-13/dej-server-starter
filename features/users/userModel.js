@@ -1,3 +1,4 @@
+import { ROLES } from '#constants';
 import { Schema } from '#lib';
 import bcrypt from 'bcryptjs';
 
@@ -17,6 +18,11 @@ const User = new Schema({
       password: {
         type: String,
         required: [true, 'Password is required'],
+      },
+      role: {
+        type: String,
+        enum: ROLES,
+        default: 'customer',
       },
     },
     { timestamps: true },
