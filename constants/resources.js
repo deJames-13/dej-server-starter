@@ -17,7 +17,14 @@ export const ALIASES = {
 };
 
 export const FEATURES_URL = {
+  // BEFORE STARTING A PROJECT, MAKE SURE TO DECLARE THIS OR CHANGE THE PRE DEFINED URLS
   USERS: '/users',
+  PRODUCTS: '/products',
+  CARTS: '/carts',
+  ORDERS: '/orders',
+  BRANDS: '/brands',
+  CATEGORIES: '/categories',
+  REVIEWS: '/reviews',
 };
 
 export const RESOURCES = {
