@@ -12,7 +12,7 @@ import Errors from './errors.js';
 const errorHandler = ({ res, statusCode = 400, message, ...details }) => {
   res.status(statusCode);
   if (statusCode === 422)
-    throw new Errors.ValidationError(message, details.errors);
+    throw new Errors.ValidationError({ message, ...details });
   throw new Error(message);
 };
 

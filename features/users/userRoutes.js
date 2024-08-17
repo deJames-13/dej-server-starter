@@ -1,4 +1,4 @@
-import { ALL_PERMISSIONS } from '#constants';
+import { READ_WRITE } from '#constants';
 import { protectAndPermit } from '#middlewares/authMiddleware';
 import UserController from './userController.js';
 
@@ -37,9 +37,6 @@ export default [
   {
     path: '/profile',
     method: 'patch',
-    controller: [
-      ...protectAndPermit(ALL_PERMISSIONS),
-      controller.updateProfile,
-    ],
+    controller: [...protectAndPermit(READ_WRITE), controller.updateProfile],
   },
 ];

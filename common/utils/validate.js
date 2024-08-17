@@ -17,7 +17,10 @@ const validate = async (req, res, validationRules) => {
       .array()
       .map((err) => err.msg)
       .join('\n');
-    throw new Errors.ValidationError(errorMessages, errors.array());
+    throw new Errors.ValidationError({
+      message: errorMessages,
+      details: errors.array(),
+    });
   }
   return matchedData(req);
 };

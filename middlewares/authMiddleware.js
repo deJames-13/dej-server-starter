@@ -22,9 +22,7 @@ export const protect = async (req, res, next) => {
 export const checkPermissions = (permissions = []) => {
   return (req, res, next) => {
     const user = req.user;
-    if (!user) {
-      throw new Errors.AuthorizationError();
-    }
+    if (!user) throw new Errors.AuthorizationError();
 
     const userRole = user?.role;
     const userPermissions = user?.permissions || PRIVILEGES[userRole] || [];
@@ -34,7 +32,7 @@ export const checkPermissions = (permissions = []) => {
     );
 
     if (!hasPermission) {
-      throw new Errors.AuthorizationError();
+      throw new Errors.Forbidden();
     }
 
     next();

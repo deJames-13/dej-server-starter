@@ -8,7 +8,10 @@ export const validate = (req, res, next) => {
       .array()
       .map((err) => err.msg)
       .join('. ');
-    throw new ValidationError(errorMessages, errors.array());
+    throw new ValidationError({
+      message: errorMessages,
+      details: errors.array(),
+    });
   }
   next();
 };

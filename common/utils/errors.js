@@ -18,7 +18,7 @@ export class AppError extends Error {
     super(message);
     this.name = name;
     this.statusCode = statusCode;
-    this.errors = details;
+    this.errors = { ...details };
   }
 }
 
@@ -29,6 +29,7 @@ const errorSchema = [
   { name: 'Conflict', message: 'Resource already exists.', statusCode: 409 },
   { name: 'BadRequest', message: 'Bad request.', statusCode: 400 },
   { name: 'IamATeapot', message: "I'm a teapot.", statusCode: 418 },
+  { name: 'ValidationError', message: 'Invalid input error.', statusCode: 422 },
   {
     name: 'InternalServerError',
     message: 'Internal server error.',
