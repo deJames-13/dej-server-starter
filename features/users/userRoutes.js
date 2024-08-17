@@ -11,7 +11,7 @@ export default [
   {
     path: '/:id',
     method: 'get',
-    controller: controller.getUser,
+    controller: controller.getById,
   },
   {
     path: '/',
