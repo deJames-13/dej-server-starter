@@ -7,6 +7,10 @@ import { userCreateRules, userUpdateRules } from './userValidation.js';
 class UserController extends Controller {
   service = UserService;
   resource = UserResource;
+  rules = {
+    create: userCreateRules,
+    update: userUpdateRules,
+  };
 
   // @desc    Register a new user
   // route    POST /api/users
@@ -15,7 +19,7 @@ class UserController extends Controller {
     if (tokenExists(req, this.service.authToken))
       return this.error({ res, message: 'Already authenticated!' });
 
-    const validData = await this.validator(req, res, userCreateRules);
+    const validData = await this.validator(req, res, this.rules.create);
     const { user, token } = await this.service.registerUser(validData);
     if (!user._id) return this.error({ res, message: 'Invalid user data!' });
 
@@ -82,7 +86,7 @@ class UserController extends Controller {
   updateProfile = async (req, res) => {
     req.body = { ...req.user.toObject(), ...req.body };
 
-    const validData = await this.validator(req, res, userUpdateRules);
+    const validData = await this.validator(req, res, this.rules.update);
     const user = await this.service.updateUser(req.user._id, validData);
     if (!user) return this.error({ res, message: 'Invalid user data!' });
 
