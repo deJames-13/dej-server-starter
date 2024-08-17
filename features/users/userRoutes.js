@@ -35,7 +35,7 @@ export default [
   },
   {
     path: '/profile',
-    method: 'put',
+    method: 'patch',
     controller: [protect, controller.updateProfile],
   },
 ];

@@ -84,8 +84,6 @@ class UserController extends Controller {
   // route    PUT /api/users/profile
   // @access  Private
   updateProfile = async (req, res) => {
-    req.body = { ...req.user.toObject(), ...req.body };
-
     const validData = await this.validator(req, res, this.rules.update);
     const user = await this.service.updateUser(req.user._id, validData);
     if (!user) return this.error({ res, message: 'Invalid user data!' });
