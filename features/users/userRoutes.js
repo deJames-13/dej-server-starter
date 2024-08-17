@@ -5,12 +5,12 @@ import UserController from './userController.js';
 const controller = UserController;
 export default [
   {
-    path: PATHS.ROOT,
+    path: PATHS.ALL,
     method: METHODS.GET,
     controller: controller.getALl,
   },
   {
-    path: PATHS.ROOT,
+    path: PATHS.STORE,
     method: METHODS.POST,
     controller: controller.register,
   },

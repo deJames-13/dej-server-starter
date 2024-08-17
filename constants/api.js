@@ -26,6 +26,8 @@ export const STATUS = {
 
 export const PATHS = {
   ROOT: '/',
+  ALL: '/',
+  STORE: '/',
   ID: '/:id',
   EDIT: '/edit/:id',
   REGISTER: '/register',
