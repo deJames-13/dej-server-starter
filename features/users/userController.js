@@ -21,7 +21,7 @@ class UserController extends Controller {
 
     const validData = await this.validator(req, res, this.rules.create);
     const { user, token } = await this.service.registerUser(validData);
-    if (!user._id) throw new Error('Invalid user data!');
+    if (!user._id) throw new Errors.BadRequest('Invalid user data!');
 
     res.cookie(...token);
     this.success({
