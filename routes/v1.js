@@ -7,5 +7,4 @@ const v1 = [
     router: features.userRoutes,
   },
 ];
-
 export default v1;

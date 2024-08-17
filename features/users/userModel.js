@@ -1,7 +1,6 @@
 import { ROLES } from '#constants';
 import { Schema } from '#lib';
 import bcrypt from 'bcryptjs';
-
 const User = new Schema({
   name: 'User',
   schema: [
