@@ -1,7 +1,7 @@
 export const ALIASES = {
   ID: 'id',
   EDIT: 'edit',
-  ROOT: 'root',
+  ROOT: '/',
   REGISTER: 'register',
   AUTHENTICATE: 'authenticate',
   LOGOUT: 'logout',

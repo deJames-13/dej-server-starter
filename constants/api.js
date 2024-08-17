@@ -30,6 +30,7 @@ export const PATHS = {
   EDIT: '/edit/:id',
   REGISTER: '/register',
   AUTHENTICATE: '/authenticate',
+  PROFILE: '/profile',
   LOGOUT: '/logout',
   RESTORE: '/restore/:id',
   DELETED: '/deleted',
