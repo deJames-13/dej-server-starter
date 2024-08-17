@@ -27,3 +27,14 @@ export const protect = async (req, res, next) => {
     });
   }
 };
+
+export const checkRole = async (role, req, res, next) => {
+  if (req.user.role !== role)
+    return errorHandler({
+      res,
+      statusCode: 403,
+      message: 'Forbidden: You do not have permission to access this resource.',
+    });
+
+  next();
+};
