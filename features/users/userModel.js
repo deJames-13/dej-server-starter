@@ -1,8 +1,8 @@
-import { ROLES } from '#constants';
+import { FEATURES, ROLES } from '#constants';
 import { Schema } from '#lib';
 import bcrypt from 'bcryptjs';
 const User = new Schema({
-  name: 'User',
+  name: FEATURES.USERS,
   schema: [
     {
       name: {
@@ -21,7 +21,7 @@ const User = new Schema({
       role: {
         type: String,
         enum: ROLES,
-        default: 'customer',
+        default: ROLES.CUSTOMER,
       },
     },
     { timestamps: true },
