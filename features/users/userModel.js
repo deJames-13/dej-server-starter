@@ -1,4 +1,4 @@
-import { Schema } from '#common';
+import { Schema } from '#lib';
 import bcrypt from 'bcryptjs';
 
 const User = new Schema({

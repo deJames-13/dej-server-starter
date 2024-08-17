@@ -1,4 +1,4 @@
-import { Resource } from '#common';
+import { Resource } from '#lib';
 export default class UserResource extends Resource {
   transform(user) {
     return {

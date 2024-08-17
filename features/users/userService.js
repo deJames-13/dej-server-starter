@@ -1,4 +1,4 @@
-import { Service } from '#common';
+import { Service } from '#lib';
 import { destroyToken, generateToken } from '#utils';
 import User from './userModel.js';
 
