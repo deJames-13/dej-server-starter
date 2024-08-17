@@ -10,12 +10,13 @@ export class AppError extends Error {
    * @param {number} statusCode - The HTTP status code.
    */
   constructor({
+    name = 'AppError',
     message = 'An error occurred.',
     statusCode = 500,
     ...details
   }) {
     super(message);
-    this.name = this.constructor.name;
+    this.name = name;
     this.statusCode = statusCode;
     this.errors = details;
   }
@@ -39,7 +40,7 @@ const generateErrorClasses = (schema) => {
   return schema.reduce((acc, { name, message, statusCode }) => {
     acc[name] = class extends AppError {
       constructor({ message: customMessage = message, ...details } = {}) {
-        super({ message: customMessage, statusCode, ...details });
+        super({ name: name, message: customMessage, statusCode, ...details });
       }
     };
     return acc;

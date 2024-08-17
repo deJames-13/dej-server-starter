@@ -8,14 +8,14 @@ export const protect = async (req, res, next) => {
     req.cookies.jwt ||
     req.cookies[UserService.authToken];
 
-  if (!token) new Errors.AuthorizationError();
+  if (!token) throw new Errors.AuthorizationError();
   try {
     const decoded = verifyToken(token);
     req.user = await UserService.getById(decoded.userId);
 
     next();
   } catch (e) {
-    throw new Errors.AuthorizationError({ errors: e?.statck });
+    throw new Errors.AuthorizationError({ details: e.message });
   }
 };
 
@@ -23,7 +23,7 @@ export const checkPermissions = (permissions = []) => {
   return (req, res, next) => {
     const user = req.user;
     if (!user) {
-      return res.status(401).json({ message: 'Unauthorized' });
+      throw new Errors.AuthorizationError();
     }
 
     const userRole = user?.role;
@@ -34,9 +34,7 @@ export const checkPermissions = (permissions = []) => {
     );
 
     if (!hasPermission) {
-      throw new Errors.AuthorizationError({
-        message: 'You do not have permission to perform this action',
-      });
+      throw new Errors.AuthorizationError();
     }
 
     next();

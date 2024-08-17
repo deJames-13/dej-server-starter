@@ -1,6 +1,5 @@
 import { JWT_EXPIRE, JWT_SECRET, NODE_ENV } from '#config';
 import jwt from 'jsonwebtoken';
-import Errors from './errors.js';
 
 const defaultCookieOptions = {
   httpOnly: true,
@@ -68,7 +67,7 @@ export function verifyToken(token) {
 
 export const getBearerToken = (req) => {
   const authHeader = req?.headers.authorization;
-  if (!authHeader) throw new Errors.AuthorizationError();
+  if (!authHeader) return null;
   const token = authHeader.split(' ')[1];
   return token;
 };
