@@ -1,7 +1,10 @@
 export const ROLES = {
   DEV: 'developer',
+  SUPERADMIN: 'superadmin',
   ADMIN: 'admin',
   USER: 'user',
+  STAFF: 'staff',
+  EMPLOYEE: 'employee',
   GUEST: 'guest',
   CUSTOMER: 'customer',
 };
@@ -9,7 +12,68 @@ export const ROLES = {
 export const PERMISSIONS = {
   CREATE: 'create',
   READ: 'read',
-  VIEW: 'view',
   UPDATE: 'update',
   DELETE: 'delete',
+  RESTORE: 'restore',
+  EXPORT: 'export',
+  IMPORT: 'import',
+  PUBLISH: 'publish',
+  UNPUBLISH: 'unpublish',
+  APPROVE: 'approve',
+  REJECT: 'reject',
+  EXECUTE: 'execute',
+  MANAGE: 'manage',
+  MANAGE_USERS: 'manage_users',
+  MANAGE_ROLES: 'manage_roles',
+  ASSIGN_ROLES: 'assign_roles',
+  VIEW_LOGS: 'view_logs',
+  VIEW_REPORTS: 'view_reports',
+  GENERATE_REPORTS: 'generate_reports',
+  ACCESS_DASHBOARD: 'access_dashboard',
+};
+
+export const ALL_PERMISSIONS = Object.values(PERMISSIONS);
+export const READ_ONLY = [PERMISSIONS.READ];
+export const READ_WRITE = [
+  PERMISSIONS.READ,
+  PERMISSIONS.CREATE,
+  PERMISSIONS.UPDATE,
+];
+export const BASIC_OPERATIONS = [
+  ...READ_WRITE,
+  PERMISSIONS.DELETE,
+  PERMISSIONS.RESTORE,
+];
+export const DASHBOARD_PERMISSIONS = [
+  ...BASIC_OPERATIONS,
+  PERMISSIONS.ACCESS_DASHBOARD,
+  PERMISSIONS.MANAGE,
+  PERMISSIONS.EXPORT,
+  PERMISSIONS.IMPORT,
+  PERMISSIONS.VIEW_REPORTS,
+  PERMISSIONS.GENERATE_REPORTS,
+];
+export const TRANSACTION_PERMISSIONS = [
+  ...DASHBOARD_PERMISSIONS,
+  PERMISSIONS.PUBLISH,
+  PERMISSIONS.UNPUBLISH,
+  PERMISSIONS.APPROVE,
+  PERMISSIONS.REJECT,
+];
+export const ADMIN_PERMISSIONS = [
+  ...DASHBOARD_PERMISSIONS,
+  PERMISSIONS.MANAGE_USERS,
+  PERMISSIONS.MANAGE_ROLES,
+  PERMISSIONS.ASSIGN_ROLES,
+  PERMISSIONS.VIEW_LOGS,
+];
+
+export const PRIVILEGES = {
+  [ROLES.DEV]: ALL_PERMISSIONS,
+  [ROLES.SUPERADMIN]: ALL_PERMISSIONS,
+  [ROLES.ADMIN]: ADMIN_PERMISSIONS,
+  [ROLES.STAFF]: DASHBOARD_PERMISSIONS,
+  [ROLES.EMPLOYEE]: TRANSACTION_PERMISSIONS,
+  [ROLES.GUEST]: READ_ONLY,
+  [ROLES.USER]: READ_WRITE,
 };
