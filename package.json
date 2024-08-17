@@ -1,6 +1,6 @@
 {
   "name": "@dejames-13/dej-server-starter",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A starter template for Express Server projects, for personal use only",
   "type": "module",
   "scripts": {
