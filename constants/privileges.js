@@ -23,6 +23,7 @@ export const PERMISSIONS = {
   REJECT: 'reject',
   EXECUTE: 'execute',
   MANAGE: 'manage',
+  MANAGE_TRANSACTION: 'manage_transactions',
   MANAGE_USERS: 'manage_users',
   MANAGE_ROLES: 'manage_roles',
   ASSIGN_ROLES: 'assign_roles',
@@ -57,6 +58,7 @@ export const DASHBOARD_PERMISSIONS = [
 ];
 export const TRANSACTION_PERMISSIONS = [
   ...DASHBOARD_PERMISSIONS,
+  PERMISSIONS.MANAGE_TRANSACTION,
   PERMISSIONS.PUBLISH,
   PERMISSIONS.UNPUBLISH,
   PERMISSIONS.APPROVE,
