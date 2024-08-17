@@ -66,7 +66,7 @@ class UserController extends Controller {
   getProfile = async (req, res) => {
     const user = req.user;
 
-    if (!user._id) throw new Errors.BadRequest('Invalid user data!');
+    if (!user?._id) throw new Errors.BadRequest('Invalid user data!');
 
     this.success({
       res,

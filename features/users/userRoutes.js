@@ -10,11 +10,6 @@ export default [
     controller: controller.getALl,
   },
   {
-    path: '/:id',
-    method: 'get',
-    controller: controller.getById,
-  },
-  {
     path: '/',
     method: 'post',
     controller: controller.register,
@@ -38,5 +33,10 @@ export default [
     path: '/profile',
     method: 'patch',
     controller: [...protectAndPermit(READ_WRITE), controller.updateProfile],
+  },
+  {
+    path: '/:id',
+    method: 'get',
+    controller: controller.getById,
   },
 ];

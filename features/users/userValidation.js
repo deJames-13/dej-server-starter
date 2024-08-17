@@ -1,6 +1,4 @@
-import { isUnique } from '#common';
 import { check } from 'express-validator';
-import UserModel from './userModel.js';
 
 const matchPassword = (value, { req }) => {
   if (value !== req.body.password_confirmation)
@@ -11,11 +9,7 @@ const matchPassword = (value, { req }) => {
 const userCreateRules = () => {
   // METHOD CHAINING
   return [
-    check('email')
-      .isEmail()
-      .withMessage('Email is invalid')
-      .custom(isUnique(UserModel, 'email'))
-      .withMessage('Email already exists'),
+    check('email').isEmail().withMessage('Email is invalid'),
 
     check('name')
       .notEmpty()
@@ -32,12 +26,7 @@ const userCreateRules = () => {
 
 const userUpdateRules = () => {
   return [
-    check('email')
-      .isEmail()
-      .withMessage('Email is invalid')
-      .custom(isUnique(UserModel, 'email'))
-      .withMessage('Email already exists'),
-
+    check('email').isEmail().withMessage('Email is invalid'),
     check('name')
       .optional()
       .isString()

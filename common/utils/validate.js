@@ -24,18 +24,3 @@ export const validate = async (req, res, validationRules) => {
   }
   return matchedData(req);
 };
-
-export const isUnique =
-  (model, field, exclude = {}) =>
-  async (value) => {
-    const query = { [field]: value };
-    Object.keys(exclude).forEach((key) => {
-      if (query[key]) query[key] = { ...query[key], $ne: exclude[key] };
-      else query[key] = { $ne: exclude[key] };
-    });
-    const existing = await model.findOne(query);
-    if (existing)
-      throw new Errors.Conflict(
-        `${model?.name || 'Resource'} with ${field} already exists!`
-      );
-  };
