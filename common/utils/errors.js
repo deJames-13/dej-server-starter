@@ -26,6 +26,8 @@ const errorSchema = [
   { name: 'Forbidden', message: 'Forbidden.', statusCode: 403 },
   { name: 'NotFound', message: 'Resource not found.', statusCode: 404 },
   { name: 'Conflict', message: 'Resource already exists.', statusCode: 409 },
+  { name: 'BadRequest', message: 'Bad request.', statusCode: 400 },
+  { name: 'IamATeapot', message: "I'm a teapot.", statusCode: 418 },
   {
     name: 'InternalServerError',
     message: 'Internal server error.',
