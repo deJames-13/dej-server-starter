@@ -1,8 +1,8 @@
-import { FEATURES, ROLES } from '#constants';
+import { ROLES } from '#constants';
 import { Schema } from '#lib';
 import bcrypt from 'bcryptjs';
 const User = new Schema({
-  name: FEATURES.USERS,
+  name: 'User',
   schema: [
     {
       name: {

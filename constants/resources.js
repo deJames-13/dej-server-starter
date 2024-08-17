@@ -16,17 +16,11 @@ export const ALIASES = {
   WITHOUT_PASSWORD: '-password',
 };
 
-export const FEATURES = {
-  USERS: 'Users', // User, url = /users
+export const FEATURES_URL = {
+  USERS: '/users',
 };
-
-export const FEATURES_URL = Object.keys(FEATURES).reduce((acc, key) => {
-  acc[key] = `/${FEATURES[key].toLowerCase()}`;
-  return acc;
-}, {});
 
 export const RESOURCES = {
   ALIASES,
-  FEATURES,
   FEATURES_URL,
 };
