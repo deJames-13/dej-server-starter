@@ -14,10 +14,10 @@
   "imports": {
     "#middlewares": "./middlewares/index.js",
     "#middlewares/*": "./middlewares/*.js",
-    "#lib": "./lib/index.js",
-    "#lib/*": "./lib/*.js",
-    "#utils": "./utils/index.js",
-    "#utils/*": "./utils/*.js",
+    "#lib": "./common/lib/index.js",
+    "#lib/*": "./common/lib/*.js",
+    "#utils": "./common/utils/index.js",
+    "#utils/*": "./common/utils/*.js",
     "#config": "./config/index.js",
     "#config/*": "./config/*.js",
     "#features": "./features/index.js"
