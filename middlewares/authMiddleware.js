@@ -27,31 +27,3 @@ export const protect = async (req, res, next) => {
     });
   }
 };
-
-export const checkRole = (role) => {
-  return async (req, res, next) => {
-    if (req.user.role !== role) {
-      return errorHandler({
-        res,
-        statusCode: 403,
-        message:
-          'Forbidden: You do not have permission to access this resource.',
-      });
-    }
-    next();
-  };
-};
-
-export const checkPrivileges = (priveleges = []) => {
-  return async (req, res, next) => {
-    if (!priveleges.includes(req.user.role)) {
-      return errorHandler({
-        res,
-        statusCode: 403,
-        message:
-          'Forbidden: You do not have permission to perform this action.',
-      });
-    }
-    next();
-  };
-};
