@@ -9,7 +9,7 @@ class UserService extends Service {
   async registerUser(body) {
     const userExists = await this.checkIfExists({ email: body.email });
     if (userExists)
-      new Errors.BadRequest('User with that email already exists!');
+      throw new Errors.BadRequest('User with that email already exists!');
 
     const user = await this.create(body);
     const token = generateToken(user._id, this.authToken);
