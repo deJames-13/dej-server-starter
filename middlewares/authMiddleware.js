@@ -9,7 +9,6 @@ export const protect = async (req, res, next) => {
     req.cookies[UserService.authToken];
 
   if (!token) new AuthorizationError();
-  console.log(token);
   try {
     const decoded = verifyToken(token);
     req.user = await UserService.getById(decoded.userId);
