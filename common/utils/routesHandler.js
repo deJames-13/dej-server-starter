@@ -34,7 +34,13 @@ const validateRoute = (route) => {
  * @returns {Function[]} - An array of wrapped handler functions.
  */
 export const wrapAsync = (handlers) =>
-  handlers.map((handler) => asyncHandler(handler));
+  handlers.map((handler) => {
+    if (Array.isArray(handler)) return wrapAsync(handler);
+
+    if (typeof handler !== 'function') return;
+
+    return asyncHandler(handler);
+  });
 
 /**
  * Creates an Express router from an array of endpoint definitions.

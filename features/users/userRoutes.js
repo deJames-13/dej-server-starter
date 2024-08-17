@@ -22,17 +22,17 @@ export default [
   {
     path: PATHS.LOGOUT,
     method: METHODS.POST,
-    controller: [...protectAndPermit(), controller.logout],
+    controller: [protectAndPermit(), controller.logout],
   },
   {
     path: PATHS.PROFILE,
     method: METHODS.GET,
-    controller: [...protectAndPermit(), controller.getProfile],
+    controller: [protectAndPermit(), controller.getProfile],
   },
   {
     path: PATHS.PROFILE,
     method: METHODS.PATCH,
-    controller: [...protectAndPermit(READ_WRITE), controller.updateProfile],
+    controller: [protectAndPermit(READ_WRITE), controller.updateProfile],
   },
   {
     path: PATHS.ID,
