@@ -1,8 +1,8 @@
 import { Controller } from '#lib';
 import { Errors, tokenExists } from '#utils';
-import UserResource from './userResource.js';
-import UserService from './userService.js';
-import { userCreateRules, userUpdateRules } from './userValidation.js';
+import UserResource from './user.resource.js';
+import UserService from './user.service.js';
+import { userCreateRules, userUpdateRules } from './user.validation.js';
 
 class UserController extends Controller {
   service = UserService;
