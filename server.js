@@ -1,5 +1,5 @@
 import { connectDB, MONGO_URI, PORT } from '#config';
-import * as error from '#middlewares/errorMiddleware';
+import * as error from '#middlewares/error.middleware';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import path from 'path';

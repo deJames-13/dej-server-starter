@@ -1,6 +1,6 @@
 import { Service } from '#lib';
 import { destroyToken, Errors, generateToken } from '#utils';
-import UserModel from './userModel.js';
+import UserModel from './user.model.js';
 
 class UserService extends Service {
   model = UserModel;
