@@ -1,7 +1,7 @@
 import { check } from 'express-validator';
 
 const matchPassword = (value, { req }) => {
-  if (value !== req.body.password_confirmation)
+  if (value !== req.body.confirm_password)
     throw new Error('Password does not match!');
   return value;
 };
@@ -11,11 +11,11 @@ const userCreateRules = () => {
   return [
     check('email').isEmail().withMessage('Email is invalid'),
 
-    check('name')
+    check('username')
       .notEmpty()
-      .withMessage('Name is required')
+      .withMessage('Username is required')
       .matches(/^[a-zA-Z0-9 ]+$/)
-      .withMessage('Name must be alphanumeric'),
+      .withMessage('Username must be alphanumeric'),
 
     check('password')
       .isLength({ min: 6, max: 20 })
@@ -27,13 +27,13 @@ const userCreateRules = () => {
 const userUpdateRules = () => {
   return [
     check('email').isEmail().withMessage('Email is invalid'),
-    check('name')
+    check('username')
       .optional()
       .isString()
       .notEmpty()
-      .withMessage('Name is required')
+      .withMessage('Username is required')
       .matches(/^[a-zA-Z0-9 ]+$/)
-      .withMessage('Name must be alphanumeric'),
+      .withMessage('Username must be alphanumeric'),
 
     check('password')
       .optional()
@@ -48,7 +48,7 @@ export { userCreateRules, userUpdateRules };
 // // USING SCHEMA: BUT i don't like it
 // return checkSchema({
 //   name: {
-//     notEmpty: { errorMessage: 'Name is required!' },
+//     notEmpty: { errorMessage: 'Username is required!' },
 //   },
 //   email: {
 //     isEmail: { errorMessage: 'Email is invalid!' },

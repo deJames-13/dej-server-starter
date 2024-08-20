@@ -5,9 +5,9 @@ const User = new Schema({
   name: 'User',
   schema: [
     {
-      name: {
+      username: {
         type: String,
-        required: [true, 'Name is required'],
+        required: [true, 'Username is required'],
       },
       email: {
         type: String,
@@ -28,7 +28,7 @@ const User = new Schema({
   ],
 });
 
-User.statics.fillables = ['name', 'email', 'password'];
+User.statics.fillables = ['username', 'email', 'password'];
 User.statics.hidden = ['password'];
 
 User.statics.hashPassword = async (password) => {
