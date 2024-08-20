@@ -1,3 +1,3 @@
-export * as auth from './authMiddleware.js';
-export * as error from './errorMiddleware.js';
-export * as validate from './validateMiddleware.js';
+export * as auth from './auth.middleware.js';
+export * as error from './error.middleware.js';
+export * as validate from './validate.middleware.js';

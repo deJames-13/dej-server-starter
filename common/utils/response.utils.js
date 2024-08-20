@@ -1,4 +1,4 @@
-import Errors from './errors.js';
+import Errors from './errors.utils.js';
 
 /**
  * Handles error responses.

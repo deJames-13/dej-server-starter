@@ -16,14 +16,14 @@
     "#middlewares/*": "./middlewares/*.js",
     "#common": "./common/index.js",
     "#common/*": "./common/*.js",
-    "#constants": "./constants/index.js",
-    "#constants/*": "./constants/*.js",
+    "#constants": "./common/constants/index.js",
+    "#constants/*": "./common/constants/*.js",
     "#lib": "./common/lib/index.js",
     "#lib/*": "./common/lib/*.js",
     "#utils": "./common/utils/index.js",
     "#utils/*": "./common/utils/*.js",
-    "#config": "./config/index.js",
-    "#config/*": "./config/*.js",
+    "#config": "./common/config/index.js",
+    "#config/*": "./common/config/*.js",
     "#features": "./features/index.js"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from 'express-validator';
-import Errors from './errors.js';
+import Errors from './errors.utils.js';
 
 /**
  * Validates the request based on the provided validation rules.

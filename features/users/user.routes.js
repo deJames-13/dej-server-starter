@@ -1,5 +1,5 @@
 import { METHODS, PATHS, READ_WRITE } from '#constants';
-import { protectAndPermit } from '#middlewares/authMiddleware';
+import { protectAndPermit } from '#middlewares/auth.middleware';
 import UserController from './user.controller.js';
 
 const controller = UserController;

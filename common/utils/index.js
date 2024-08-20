@@ -1,5 +1,5 @@
-export { default as Errors } from './errors.js';
-export * from './responseHandler.js';
-export * from './routesHandler.js';
-export * from './tokenHandler.js';
-export * from './validate.js';
+export { default as Errors } from './errors.utils.js';
+export * from './response.utils.js';
+export * from './routes.utils.js';
+export * from './token.utils.js';
+export * from './validation.utils.js';
