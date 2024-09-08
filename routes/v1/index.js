@@ -1,10 +1,4 @@
-import userRoutes from './userRoutes.js';
 
-const v1 = [
-  {
-    url: '/users',
-    router: userRoutes,
-  },
-];
+const v1 = [];
 
 export default v1;
